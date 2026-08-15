@@ -32,7 +32,7 @@
 * O sistema oferece as opções "Limpar Filtros" ou "Alterar Datas".
 * O Usuário altera os dados ou limpa os filtros, e o fluxo retorna ao passo 2 ou 3 do Fluxo Principal.
 
-####### 6. Fluxo de exceção
+###### 6. Fluxo de exceção
 * Falha de comunicação com as companhias aéreas: Se tiver algum erro com o site das companhias aéreas 
 * O sistema mostra uma mensagem de erro que Não foi possível carregar as passagens no momento e pedir para que verifique sua conexão ou tente novamente mais tarde.
 * O sistema exibe um botão "Tentar Novamente".
