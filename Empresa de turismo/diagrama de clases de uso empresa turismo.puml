@@ -21,6 +21,7 @@ rectangle "sistema de turismo" {
     UC2 -.> UC5 : <<extend>>
     UC7 -.> UC6 : <<include>>
     UC5 -[hidden]down-> UC7
+    UC6 -.> UC2 : <<include>>
 
 
 }
