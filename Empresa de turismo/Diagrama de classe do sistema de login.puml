@@ -1,4 +1,4 @@
-@startuml diagrama empresa de turismo/site de viagens
+@startuml diagrama empresa de turismo/site de viagens/turismo
 left to right direction
 ' definição de atores
 actor "cliente"
