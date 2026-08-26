@@ -1,1 +1,21 @@
+@startuml title Diagrama de Sequência - Login
 
+actor Cliente
+participant "Tela de Login" as Tela
+participant "Sistema" as Sistema
+database "Banco de Dados" as Banco
+
+Cliente -> Tela : Informar usuário e senha
+Tela -> Sistema : Enviar dados
+Sistema -> Banco : Verificar dados
+Banco --> Sistema : Dados válidos
+
+alt Dados corretos
+    Sistema -> Tela : Acesso liberado
+    Tela --> Cliente : Acessar site
+else Dados incorretos
+    Sistema -> Tela : Acesso negado
+    Tela --> Cliente : Exibir mensagem
+end
+
+@enduml
