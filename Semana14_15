@@ -1,0 +1,37 @@
+flowchart TD
+    subgraph Frontend ["Front-end (Interface de Utilizador)"]
+        PP["Página Principal"]
+        Login["Login"]
+        Cad["Cadastro / Registo"]
+        Pesq["Pesquisa de Preço"]
+        Carr["Carrinho / Pagamento"]
+    end
+
+    subgraph Backend ["Back-end (Lógica e Serviços)"]
+        AuthSvc["Serviço de Autenticação (Login & Registo)"]
+        SearchSvc["Serviço de Pesquisa de Preços"]
+        SalesSvc["Serviço de Vendas e Pagamentos"]
+    end
+
+    subgraph Database ["Base de Dados (Persistência)"]
+        direction TB
+        User["Dados do Utilizador: Nome completo, Sexo, CPF, RG, Endereço, Data de nascimento"]
+        Payment["Dados de Pagamento: Pix, Boleto, Promissória, Cartão"]
+        History["Histórico: Histórico de NF e Histórico de Viagens"]
+    end
+
+    %% Fluxos baseados nos requisitos do utilizador
+    PP -->|Redireciona para| AuthSvc
+    PP -->|Acede a| SearchSvc
+    PP -->|Acede a| SalesSvc
+
+    Pesq -->|Requer autenticação| AuthSvc
+    Pesq -->|Avança para| SalesSvc
+
+    AuthSvc -->|Após autenticação| PP
+    AuthSvc -->|Avança para| SalesSvc
+
+    %% Acessos à base de dados
+    AuthSvc --> User
+    SalesSvc --> Payment
+    SalesSvc --> History
