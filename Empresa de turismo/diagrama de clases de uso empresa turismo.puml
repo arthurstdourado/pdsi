@@ -1,32 +1,51 @@
-@startuml diagrama empresa de turismo/site de viagens
+@startuml
+title Diagrama de Casos de Uso - Sistema de Turismo / Site de Viagens
 left to right direction
-' definição de atores
-actor "cliente"
-actor "banco de dados" 
-' fronteiras de sistema
-rectangle "sistema de turismo" {
-  ' definição de casos de uso
-  usecase "login" as UC1
-  usecase "consultar reservas" as UC2
-  usecase "listas aereas" as UC3
-  usecase "filtro" as UC4
-  usecase "comprar pacote" as UC5
-  usecase "gerenciar reservas" as UC6
-  usecase "gerenciar pacotes" as UC7
 
-  ' relacionamentos entre casos de uso
-    UC1 -.> UC2 : <<extend>>
-    UC2 -.> UC3 : <<include>>
-    UC4 -.> UC2 : <<extend>>
-    UC2 -.> UC5 : <<extend>>
-    UC7 -.> UC6 : <<include>>
-    UC5 -[hidden]down-> UC7
-    UC6 -.> UC2 : <<include>>
+' ============================================================
+' ATORES (papéis externos que interagem com o sistema)
+' ============================================================
+actor "Cliente" as Cliente
+actor "Administrador" as Administrador
 
+' Opcional - descomente se os voos vierem de um sistema externo:
+' actor "Sistema de Companhias Aéreas" as CiaAerea <<sistema>>
+' actor "Gateway de Pagamento" as Pagamento <<sistema>>
 
+' ============================================================
+' FRONTEIRA DO SISTEMA
+' ============================================================
+rectangle "Sistema de Turismo" {
+
+  ' Casos de uso = metas do ator (verbo no infinitivo + objeto)
+  usecase "Realizar Login"      as UC1
+  usecase "Consultar Reservas"  as UC2
+  usecase "Buscar Voos"         as UC3
+  usecase "Filtrar Resultados"  as UC4
+  usecase "Comprar Pacote"      as UC5
+  usecase "Gerenciar Reservas"  as UC6
+  usecase "Gerenciar Pacotes"   as UC7
+
+  ' Relacionamentos entre casos de uso
+  ' <<include>>: base ..> incluído (obrigatório)
+  ' <<extend>> : extensão ..> base (opcional)
+  UC5 ..> UC3 : <<include>>
+  UC4 ..> UC3 : <<extend>>
+  UC6 ..> UC2 : <<include>>
 }
 
-' associação entre atores e casos de uso
-cliente --> UC1
-UC7 --> "banco de dados"
+' ============================================================
+' ASSOCIAÇÕES ENTRE ATORES E CASOS DE USO
+' ============================================================
+Cliente --> UC1
+Cliente --> UC2
+Cliente --> UC3
+Cliente --> UC5
+
+Administrador --> UC1
+Administrador --> UC6
+Administrador --> UC7
+
+' Observação: "estar logado" é pré-condição de UC2, UC5, UC6 e UC7
+' e deve constar na descrição textual de cada um.
 @enduml
